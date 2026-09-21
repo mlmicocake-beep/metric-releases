@@ -84,7 +84,8 @@ a{color:var(--accent)}
   每個安裝檔都附一份原廠簽章清單（<span class="mono">.manifest.json</span>），
   裡面有該檔案的 SHA-256。下載後可以自己核對：
   <p class="mono" style="margin:8px 0 0;color:var(--fg)">certutil -hashfile 檔名.exe SHA256</p>
-  <p style="margin:8px 0 0">算出來的值要與上面顯示的一致。
+  <p style="margin:8px 0 0">算出來的值要與簽章清單裡的 <span class="mono">sha256</span> 一致
+  —— 按每一列的「簽章清單」就會打開那個檔。
   企業版 Portal 在安裝更新時<b>本來就會自動驗證這份簽章</b>，驗不過一律拒絕安裝。</p>
 </div>
 
@@ -135,19 +136,16 @@ function render(assets, tag, when){
       + '<div class="grow"><div class="ver">' + esc(r.k.label)
       + (r.ver ? ' <span style="color:var(--fg3);font-weight:400">' + esc(r.ver) + '</span>' : '')
       + '</div><div class="meta">' + esc(r.k.hint) + ' · ' + mb(r.size) + '</div>'
-      + '<div class="sha mono" id="sha-' + esc(r.name) + '"></div></div>'
+      + '</div>'
       + '<a class="dl" href="' + esc(r.url) + '">下載</a>'
       + '<a class="dl alt" href="' + esc(r.url) + '.manifest.json">簽章清單</a>'
       + '</div></div>';
   }).join("");
-  // SHA-256 從清單檔讀出來顯示 —— 使用者要核對的就是這個值
-  rows.forEach(function(r){
-    fetch(r.url + ".manifest.json").then(function(x){ return x.json(); }).then(function(d){
-      var el = document.getElementById("sha-" + r.name);
-      if (el && d && d.payload && d.payload.sha256)
-        el.textContent = "SHA-256 " + d.payload.sha256;
-    }).catch(function(){});
-  });
+  // 🔴 不要再加「抓 manifest 把 sha256 顯示在頁面上」這件事。
+  // release 附件的網址會轉到 objects.githubusercontent.com，那邊不送
+  // Access-Control-Allow-Origin，瀏覽器的 fetch 一定被 CORS 擋掉 ——
+  // 失敗被 catch 吃掉之後，畫面上就是一個永遠空白的欄位。
+  // 要核對的人按「簽章清單」直接開那個檔就看得到 sha256。
   document.getElementById("src").textContent =
     "版本 " + (tag || "") + (when ? "　發佈於 " + when.slice(0, 10) : "");
   return true;
