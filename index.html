@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>METRIC — 下載</title>
+<meta name="description" content="METRIC AI 企業版安裝檔下載">
+<style>
+/* 版面刻意極簡：這一頁只有一件事要做 —— 讓人拿到正確的安裝檔。
+   單檔、無外部資源，所以 GitHub Pages 直接就能服務，也不會因為某個 CDN 掛掉而破版。 */
+:root{
+  --bg:#0d0f12; --card:#15181d; --line:#252a31;
+  --fg:#e8eaed; --fg2:#a4abb5; --fg3:#6c7480;
+  --accent:#4a9eff; --ok:#3ecf8e;
+  /* 🔴 紅色只用於「需要人處理的事項」—— 不當裝飾色 */
+  --err:#ff5c5c;
+  --radius:12px;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#f7f8fa; --card:#fff; --line:#e3e6ea;
+    --fg:#14171a; --fg2:#525a64; --fg3:#858d97;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:15px/1.7 -apple-system,"Segoe UI","Noto Sans TC",system-ui,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:56px 16px 80px}
+header{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.logo{font-size:26px;font-weight:800;letter-spacing:.14em}
+.sub{color:var(--fg3);font-size:13px}
+.lead{color:var(--fg2);margin:0 0 32px}
+h2{font-size:15px;font-weight:700;margin:36px 0 12px;letter-spacing:.02em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px 20px;margin-bottom:12px}
+.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.row>.grow{flex:1;min-width:200px}
+.ver{font-size:17px;font-weight:700}
+.meta{color:var(--fg3);font-size:12.5px;margin-top:2px}
+.mono{font-family:"Cascadia Mono",Consolas,ui-monospace,monospace}
+a.dl{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;
+  border-radius:8px;padding:9px 20px;font-weight:600;font-size:14px;white-space:nowrap}
+a.dl:hover{filter:brightness(1.1)}
+a.alt{background:transparent;color:var(--fg2);border:1px solid var(--line)}
+.note{border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;
+  color:var(--fg2);font-size:14px;background:var(--card)}
+.note b{color:var(--fg)}
+.sha{color:var(--fg3);font-size:11.5px;word-break:break-all}
+.state{color:var(--fg3);padding:18px 0}
+.state.bad{color:var(--err)}
+ol{padding-left:20px;margin:8px 0 0}
+li{margin:4px 0}
+footer{margin-top:44px;color:var(--fg3);font-size:12.5px;border-top:1px solid var(--line);
+  padding-top:16px}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="logo">METRIC</div>
+  <div class="sub">AI Portal · 企業版</div>
+</header>
+<p class="lead">下載安裝檔。安裝之後，請向貴公司的 IT 索取 METRIC Portal 的位址與授權。</p>
+
+<h2>安裝檔</h2>
+<div id="list"><div class="state">讀取版本資訊中…</div></div>
+
+<h2>安裝之後</h2>
+<div class="note">
+  從這裡下載的安裝檔<b>不帶入口位址</b> —— 它不知道要連貴公司哪一台伺服器，所以安裝時會問你。
+  <ol>
+    <li>向 IT 取得 METRIC Portal 的位址（形如 <span class="mono">https://portal.公司內網:8788</span>）</li>
+    <li>安裝時填入該位址，送出登入申請</li>
+    <li>等 IT 在後台核准，就可以開始使用</li>
+  </ol>
+  <p style="margin:12px 0 0">若貴公司的 IT 已經給你一個內部下載連結，<b>請優先用那個</b> ——
+  從公司 Portal 下載的安裝檔已經帶好位址，不必自己填。</p>
+</div>
+
+<h2>確認檔案沒被動過手腳</h2>
+<div class="note">
+  每個安裝檔都附一份原廠簽章清單（<span class="mono">.manifest.json</span>），
+  裡面有該檔案的 SHA-256。下載後可以自己核對：
+  <p class="mono" style="margin:8px 0 0;color:var(--fg)">certutil -hashfile 檔名.exe SHA256</p>
+  <p style="margin:8px 0 0">算出來的值要與上面顯示的一致。
+  企業版 Portal 在安裝更新時<b>本來就會自動驗證這份簽章</b>，驗不過一律拒絕安裝。</p>
+</div>
+
+<footer>
+  <span id="src"></span>
+  ·
+  <a id="allrel" href="#">所有版本</a>
+</footer>
+
+</div>
+
+<script>
+// ── 版本資訊在瀏覽器端即時抓，不烤進這一頁 ────────────────────────────────
+// 這樣發新版時**這一頁完全不用改**（改了又忘記重推，使用者就會下載到舊版 ——
+// 靜態下載頁最常見的失效方式就是這個）。抓不到時退回「所有版本」那個連結，
+// 至少不會變成一片空白。
+var REPO = "mlmicocake-beep/metric-releases";   // ← 換成實際的公開發行 repo
+var API = "https://api.github.com/repos/" + REPO + "/releases";
+var KIND = {
+  "Metric-Setup": {label: "METRIC Agent", hint: "安裝在每位使用者的電腦上", order: 0},
+  "MetricPortalSetup": {label: "METRIC Portal", hint: "安裝在伺服器上，由 IT 負責", order: 1}
+};
+
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g,
+  function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function mb(n){ return (n/1048576).toFixed(1) + " MB"; }
+
+function kindOf(name){
+  for (var k in KIND) if (name.indexOf(k) === 0) return KIND[k];
+  return null;
+}
+
+function render(assets, tag, when){
+  var seen = {}, rows = [];
+  assets.forEach(function(a){
+    if (!/\.exe$/i.test(a.name)) return;          // 清單檔不單獨列，它是配角
+    var k = kindOf(a.name);
+    if (!k || seen[k.label]) return;              // 同一種只留最新的那一個
+    seen[k.label] = 1;
+    var m = a.name.match(/(\d+(?:\.\d+){1,3})/);
+    rows.push({k: k, name: a.name, ver: m ? m[1] : "", size: a.size,
+               url: a.browser_download_url});
+  });
+  rows.sort(function(x, y){ return x.k.order - y.k.order; });
+  if (!rows.length) return false;
+  document.getElementById("list").innerHTML = rows.map(function(r){
+    return '<div class="card"><div class="row">'
+      + '<div class="grow"><div class="ver">' + esc(r.k.label)
+      + (r.ver ? ' <span style="color:var(--fg3);font-weight:400">' + esc(r.ver) + '</span>' : '')
+      + '</div><div class="meta">' + esc(r.k.hint) + ' · ' + mb(r.size) + '</div>'
+      + '<div class="sha mono" id="sha-' + esc(r.name) + '"></div></div>'
+      + '<a class="dl" href="' + esc(r.url) + '">下載</a>'
+      + '<a class="dl alt" href="' + esc(r.url) + '.manifest.json">簽章清單</a>'
+      + '</div></div>';
+  }).join("");
+  // SHA-256 從清單檔讀出來顯示 —— 使用者要核對的就是這個值
+  rows.forEach(function(r){
+    fetch(r.url + ".manifest.json").then(function(x){ return x.json(); }).then(function(d){
+      var el = document.getElementById("sha-" + r.name);
+      if (el && d && d.payload && d.payload.sha256)
+        el.textContent = "SHA-256 " + d.payload.sha256;
+    }).catch(function(){});
+  });
+  document.getElementById("src").textContent =
+    "版本 " + (tag || "") + (when ? "　發佈於 " + when.slice(0, 10) : "");
+  return true;
+}
+
+document.getElementById("allrel").href = "https://github.com/" + REPO + "/releases";
+fetch(API + "?per_page=5", {headers: {"Accept": "application/vnd.github+json"}})
+  .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(function(rels){
+    // 最新的那個 release 若少了某一種安裝檔，往回找 —— Portal 與 Agent 不一定同時出版。
+    var all = [], tag = "", when = "";
+    (rels || []).forEach(function(rel){
+      if (rel.draft || rel.prerelease) return;
+      if (!tag) { tag = rel.tag_name; when = rel.published_at; }
+      (rel.assets || []).forEach(function(a){ all.push(a); });
+    });
+    if (!render(all, tag, when)) throw new Error("沒有可用的安裝檔");
+  })
+  .catch(function(e){
+    document.getElementById("list").innerHTML =
+      '<div class="state bad">暫時讀不到版本資訊（' + esc(e.message) + '）。</div>'
+      + '<div class="card"><div class="row"><div class="grow">'
+      + '直接到發行頁面挑選版本</div>'
+      + '<a class="dl" href="https://github.com/' + REPO + '/releases">前往發行頁面</a>'
+      + '</div></div>';
+  });
+</script>
+</body>
+</html>
