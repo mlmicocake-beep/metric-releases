@@ -62,31 +62,31 @@ a{color:var(--accent)}
   <div class="logo">METRIC</div>
   <div class="sub">AI Portal · 企業版</div>
 </header>
-<p class="lead">下載安裝檔。安裝之後，請向貴公司的 IT 索取 METRIC Portal 的位址與授權。</p>
+<p class="lead">METRIC 安裝檔下載。安裝後，請向貴企業 IT 取得 METRIC Portal 位址與使用授權。</p>
 
 <h2>安裝檔</h2>
 <div id="list"><div class="state">讀取版本資訊中…</div></div>
 
-<h2>安裝之後</h2>
+<h2>安裝後設定</h2>
 <div class="note">
-  從這裡下載的安裝檔<b>不帶入口位址</b> —— 它不知道要連貴公司哪一台伺服器，所以安裝時會問你。
+  本頁提供的安裝檔<b>未內建入口位址</b>，安裝時會詢問要連線的 Portal 位址。
   <ol>
-    <li>向 IT 取得 METRIC Portal 的位址（形如 <span class="mono">https://portal.公司內網:8788</span>）</li>
-    <li>安裝時填入該位址，送出登入申請</li>
-    <li>等 IT 在後台核准，就可以開始使用</li>
+    <li>向 IT 取得 METRIC Portal 位址（格式如 <span class="mono">https://portal.企業內網:8788</span>）</li>
+    <li>安裝時輸入該位址，並送出登入申請</li>
+    <li>IT 於後台核准後即可使用</li>
   </ol>
-  <p style="margin:12px 0 0">若貴公司的 IT 已經給你一個內部下載連結，<b>請優先用那個</b> ——
-  從公司 Portal 下載的安裝檔已經帶好位址，不必自己填。</p>
+  <p style="margin:12px 0 0">若 IT 已提供內部下載連結，<b>請優先使用</b>：
+  自貴企業 Portal 下載的安裝檔已內建位址，無須手動輸入。</p>
 </div>
 
-<h2>確認檔案沒被動過手腳</h2>
+<h2>驗證檔案完整性</h2>
 <div class="note">
-  每個安裝檔都附一份原廠簽章清單（<span class="mono">.manifest.json</span>），
-  裡面有該檔案的 SHA-256。下載後可以自己核對：
+  每個安裝檔均附一份原廠簽章清單（<span class="mono">.manifest.json</span>），
+  記載該檔案的 SHA-256。下載後可執行下列指令核對：
   <p class="mono" style="margin:8px 0 0;color:var(--fg)">certutil -hashfile 檔名.exe SHA256</p>
-  <p style="margin:8px 0 0">算出來的值要與簽章清單裡的 <span class="mono">sha256</span> 一致
-  —— 按每一列的「簽章清單」就會打開那個檔。
-  企業版 Portal 在安裝更新時<b>本來就會自動驗證這份簽章</b>，驗不過一律拒絕安裝。</p>
+  <p style="margin:8px 0 0">計算結果應與簽章清單中的 <span class="mono">sha256</span> 一致；
+  點選各列的「簽章清單」即可開啟該檔。
+  企業版 Portal 安裝更新時<b>會自動驗證此簽章</b>，驗證失敗一律拒絕安裝。</p>
 </div>
 
 <footer>
@@ -105,8 +105,8 @@ a{color:var(--accent)}
 var REPO = "mlmicocake-beep/metric-releases";   // ← 換成實際的公開發行 repo
 var API = "https://api.github.com/repos/" + REPO + "/releases";
 var KIND = {
-  "Metric-Setup": {label: "METRIC Agent", hint: "安裝在每位使用者的電腦上", order: 0},
-  "MetricPortalSetup": {label: "METRIC Portal", hint: "安裝在伺服器上，由 IT 負責", order: 1}
+  "Metric-Setup": {label: "METRIC Agent", hint: "安裝於每位使用者的電腦", order: 0},
+  "MetricPortalSetup": {label: "METRIC Portal", hint: "安裝於伺服器，由 IT 管理", order: 1}
 };
 
 function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g,
@@ -122,6 +122,9 @@ function render(assets, tag, when){
   var seen = {}, rows = [];
   assets.forEach(function(a){
     if (!/\.exe$/i.test(a.name)) return;          // 清單檔不單獨列，它是配角
+    // -portal-only 也以 MetricPortalSetup 開頭，而 GitHub 附件依字母排序時它排在前面 ——
+    // 不先排除，這一頁的 Portal 下載會是不含 Agent 的版本（全新安裝後內部下載頁是空的）。
+    if (/-portal-only\.exe$/i.test(a.name)) return;
     var k = kindOf(a.name);
     if (!k || seen[k.label]) return;              // 同一種只留最新的那一個
     seen[k.label] = 1;
@@ -163,13 +166,13 @@ fetch(API + "?per_page=5", {headers: {"Accept": "application/vnd.github+json"}})
       if (!tag) { tag = rel.tag_name; when = rel.published_at; }
       (rel.assets || []).forEach(function(a){ all.push(a); });
     });
-    if (!render(all, tag, when)) throw new Error("沒有可用的安裝檔");
+    if (!render(all, tag, when)) throw new Error("無可用的安裝檔");
   })
   .catch(function(e){
     document.getElementById("list").innerHTML =
-      '<div class="state bad">暫時讀不到版本資訊（' + esc(e.message) + '）。</div>'
+      '<div class="state bad">無法取得版本資訊（' + esc(e.message) + '）。</div>'
       + '<div class="card"><div class="row"><div class="grow">'
-      + '直接到發行頁面挑選版本</div>'
+      + '請至發行頁面選擇版本</div>'
       + '<a class="dl" href="https://github.com/' + REPO + '/releases">前往發行頁面</a>'
       + '</div></div>';
   });

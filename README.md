@@ -1,33 +1,33 @@
 # METRIC — 發行與下載
 
-這個 repo **只放發行物**，沒有原始碼。
+本 repo **僅存放發行物**，不含原始碼。
 
-- 安裝檔在 [Releases](../../releases)
+- 安裝檔：[Releases](../../releases)
 - 下載頁：<https://mlmicocake-beep.github.io/metric-releases/>
 
 ## 檔案
 
-每一版會有兩種安裝檔，各自配一份原廠簽章清單：
+每個版本包含兩種安裝檔，各附一份原廠簽章清單：
 
-| 檔案 | 裝在哪 |
+| 檔案 | 安裝位置 |
 |---|---|
-| `Metric-Setup-<版本>.exe` | 使用者的電腦 |
-| `MetricPortalSetup-<版本>.exe` | 公司的伺服器（IT 負責） |
+| `Metric-Setup-<版本>.exe` | 使用者電腦 |
+| `MetricPortalSetup-<版本>.exe` | 企業伺服器（由 IT 管理） |
 | `*.exe.manifest.json` | 對應的簽章清單，與 exe 成對 |
 
-## 為什麼要有簽章清單
+## 簽章清單的作用
 
-METRIC Portal 以系統權限執行，而「套用更新」做的事就是執行上傳的安裝檔。
-Portal 只安裝**原廠 Ed25519 私鑰簽過**的檔案：清單被改、exe 被換、或有人冒充下載來源，
-都會在安裝前就被擋下來。私鑰只存在原廠機器上，不在這個 repo 裡，也不在任何出貨物裡。
+METRIC Portal 以系統權限執行，而「套用更新」即執行上傳的安裝檔。
+Portal 僅安裝經**原廠 Ed25519 私鑰簽署**的檔案：清單遭竄改、exe 遭替換或下載來源遭冒充，
+均會在安裝前被阻擋。私鑰僅存放於原廠機器，不在本 repo，亦不包含於任何出貨物。
 
-所以 **exe 與 `.manifest.json` 一定要成對上架**。少了清單，客戶的 Portal 收不進去。
+因此 **exe 與 `.manifest.json` 必須成對上架**。缺少清單時，客戶環境中的 Portal 將無法安裝該檔案。
 
-## 給 IT 的安裝說明
+## IT 安裝說明
 
-從這裡下載的安裝檔**不帶入口位址** —— 它不知道要連貴公司哪一台伺服器，安裝時會詢問。
-若公司內部已經架好 METRIC Portal，從那台 Portal 的下載頁取得的安裝檔已經帶好位址，
-不需要手動填寫，請優先使用。
+此處下載的安裝檔**未內建入口位址**，安裝時會詢問要連線的伺服器。
+若企業內部已部署 METRIC Portal，自該 Portal 下載頁取得的安裝檔已內建位址，
+無須手動輸入，請優先使用。
 
 ## 驗證下載的檔案
 
@@ -35,4 +35,4 @@ Portal 只安裝**原廠 Ed25519 私鑰簽過**的檔案：清單被改、exe �
 certutil -hashfile Metric-Setup-<版本>.exe SHA256
 ```
 
-算出來的值應與下載頁顯示的、以及 `.manifest.json` 裡的 `sha256` 一致。
+計算結果應與 `.manifest.json` 中的 `sha256` 一致。
