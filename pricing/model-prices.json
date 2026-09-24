@@ -1,0 +1,629 @@
+{
+  "schema": 1,
+  "generated_at": "2026-09-24",
+  "currency": "USD",
+  "unit": "每百萬 token",
+  "peak_timezone": "Asia/Taipei",
+  "note": "標準價＝in（未命中快取的輸入）／out（輸出）／in_cached（快取命中的輸入）／cache_write（寫入快取另收費者，取預設 5 分鐘 TTL 價）／reasoning（官方另訂思考模式輸出價者才有）；tiers＝單次請求輸入 token 超過 above_tokens 時整筆改用該段價；有分時價的供應商另有 op＝離峰價與 peak＝收標準價的時段（台北時間，d 為 ISO 星期、1＝週一；DeepSeek 官方尖峰為 UTC 週一至五 01:00–04:00、06:00–10:00，換算台北即 09:00–12:00、14:00–18:00，中國法定假日全天離峰未列入）。",
+  "prices": {
+    "deepseek-flash": {
+      "vendor": "deepseek",
+      "name": "DeepSeek V4.1 Flash",
+      "in": 0.30, "out": 1.20, "in_cached": 0.006,
+      "op": {"in": 0.15, "out": 0.60, "in_cached": 0.003,
+             "peak": [{"d": [1, 2, 3, 4, 5], "s": "09:00", "e": "12:00"}, {"d": [1, 2, 3, 4, 5], "s": "14:00", "e": "18:00"}]},
+      "context_length": 1000000,
+      "aliases": ["deepseek-v4-flash", "deepseek-v4-flash-vision-exp"],
+      "src": "https://api-docs.deepseek.com/quick_start/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "deepseek-v4-pro": {
+      "vendor": "deepseek",
+      "name": "DeepSeek V4 Pro",
+      "in": 1.32, "out": 3.96, "in_cached": 0.044,
+      "op": {"in": 0.66, "out": 1.98, "in_cached": 0.022,
+             "peak": [{"d": [1, 2, 3, 4, 5], "s": "09:00", "e": "12:00"}, {"d": [1, 2, 3, 4, 5], "s": "14:00", "e": "18:00"}]},
+      "context_length": 1000000,
+      "src": "https://api-docs.deepseek.com/quick_start/pricing",
+      "verified_at": "2026-09-24"
+    },
+
+    "gpt-6-astra": {
+      "vendor": "openai",
+      "name": "GPT-6 Astra",
+      "in": 10, "out": 50, "in_cached": 1, "cache_write": 12.5,
+      "tiers": [{"above_tokens": 272000, "in": 20, "out": 75, "in_cached": 2, "cache_write": 25}],
+      "context_length": 1050000,
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-6-sol": {
+      "vendor": "openai",
+      "name": "GPT-6 Sol",
+      "in": 2, "out": 10, "in_cached": 0.2, "cache_write": 2.5,
+      "tiers": [{"above_tokens": 272000, "in": 4, "out": 15, "in_cached": 0.4, "cache_write": 5}],
+      "context_length": 1050000,
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-6-luna": {
+      "vendor": "openai",
+      "name": "GPT-6 Luna",
+      "in": 0.1, "out": 0.5, "in_cached": 0.01, "cache_write": 0.125,
+      "tiers": [{"above_tokens": 272000, "in": 0.2, "out": 0.75, "in_cached": 0.02, "cache_write": 0.25}],
+      "context_length": 1050000,
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5.6-sol": {
+      "vendor": "openai",
+      "name": "GPT-5.6 Sol",
+      "in": 4, "out": 20, "in_cached": 0.4, "cache_write": 5,
+      "tiers": [{"above_tokens": 272000, "in": 8, "out": 30, "in_cached": 0.8, "cache_write": 10}],
+      "context_length": 1050000,
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5.6-terra": {
+      "vendor": "openai",
+      "name": "GPT-5.6 Terra",
+      "in": 2, "out": 12, "in_cached": 0.2, "cache_write": 2.5,
+      "tiers": [{"above_tokens": 272000, "in": 4, "out": 18, "in_cached": 0.4, "cache_write": 5}],
+      "context_length": 1050000,
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5.6-luna": {
+      "vendor": "openai",
+      "name": "GPT-5.6 Luna",
+      "in": 0.2, "out": 1.2, "in_cached": 0.02, "cache_write": 0.25,
+      "tiers": [{"above_tokens": 272000, "in": 0.4, "out": 1.8, "in_cached": 0.04, "cache_write": 0.5}],
+      "context_length": 1050000,
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5.5": {
+      "vendor": "openai",
+      "name": "GPT-5.5",
+      "in": 5, "out": 30, "in_cached": 0.5,
+      "tiers": [{"above_tokens": 272000, "in": 10, "out": 45, "in_cached": 1}],
+      "context_length": 1050000,
+      "aliases": ["gpt-5.5-2026-04-23"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5.4": {
+      "vendor": "openai",
+      "name": "GPT-5.4",
+      "in": 2.5, "out": 15, "in_cached": 0.25,
+      "tiers": [{"above_tokens": 272000, "in": 5, "out": 22.5, "in_cached": 0.5}],
+      "context_length": 1050000,
+      "aliases": ["gpt-5.4-2026-03-05"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5.4-mini": {
+      "vendor": "openai",
+      "name": "GPT-5.4 mini",
+      "in": 0.75, "out": 4.5, "in_cached": 0.075,
+      "context_length": 400000,
+      "aliases": ["gpt-5.4-mini-2026-03-17"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5.4-nano": {
+      "vendor": "openai",
+      "name": "GPT-5.4 nano",
+      "in": 0.2, "out": 1.25, "in_cached": 0.02,
+      "context_length": 400000,
+      "aliases": ["gpt-5.4-nano-2026-03-17"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5": {
+      "vendor": "openai",
+      "name": "GPT-5",
+      "in": 1.25, "out": 10, "in_cached": 0.125,
+      "context_length": 400000,
+      "aliases": ["gpt-5-2025-08-07"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5-mini": {
+      "vendor": "openai",
+      "name": "GPT-5 mini",
+      "in": 0.25, "out": 2, "in_cached": 0.025,
+      "context_length": 400000,
+      "aliases": ["gpt-5-mini-2025-08-07"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-5-nano": {
+      "vendor": "openai",
+      "name": "GPT-5 nano",
+      "in": 0.05, "out": 0.4, "in_cached": 0.005,
+      "context_length": 400000,
+      "aliases": ["gpt-5-nano-2025-08-07"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-4o": {
+      "vendor": "openai",
+      "name": "GPT-4o",
+      "in": 2.5, "out": 10, "in_cached": 1.25,
+      "context_length": 128000,
+      "aliases": ["gpt-4o-2024-11-20", "gpt-4o-2024-08-06"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gpt-4o-mini": {
+      "vendor": "openai",
+      "name": "GPT-4o mini",
+      "in": 0.15, "out": 0.6, "in_cached": 0.075,
+      "context_length": 128000,
+      "aliases": ["gpt-4o-mini-2024-07-18"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "o3": {
+      "vendor": "openai",
+      "name": "o3",
+      "in": 2, "out": 8, "in_cached": 0.5,
+      "context_length": 200000,
+      "aliases": ["o3-2025-04-16"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "o4-mini": {
+      "vendor": "openai",
+      "name": "o4-mini",
+      "in": 1.1, "out": 4.4, "in_cached": 0.275,
+      "context_length": 200000,
+      "aliases": ["o4-mini-2025-04-16"],
+      "src": "https://developers.openai.com/api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+
+    "claude-fable-5-1": {
+      "vendor": "anthropic",
+      "name": "Claude Fable 5.1",
+      "in": 10, "out": 50, "in_cached": 0.25, "cache_write": 12.5,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-fable-5": {
+      "vendor": "anthropic",
+      "name": "Claude Fable 5",
+      "in": 10, "out": 50, "in_cached": 1, "cache_write": 12.5,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-opus-5-5": {
+      "vendor": "anthropic",
+      "name": "Claude Opus 5.5",
+      "in": 4, "out": 20, "in_cached": 0.2, "cache_write": 5,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-opus-5": {
+      "vendor": "anthropic",
+      "name": "Claude Opus 5",
+      "in": 5, "out": 25, "in_cached": 0.5, "cache_write": 6.25,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-opus-4-8": {
+      "vendor": "anthropic",
+      "name": "Claude Opus 4.8",
+      "in": 5, "out": 25, "in_cached": 0.5, "cache_write": 6.25,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-opus-4-7": {
+      "vendor": "anthropic",
+      "name": "Claude Opus 4.7",
+      "in": 5, "out": 25, "in_cached": 0.5, "cache_write": 6.25,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-opus-4-6": {
+      "vendor": "anthropic",
+      "name": "Claude Opus 4.6",
+      "in": 5, "out": 25, "in_cached": 0.5, "cache_write": 6.25,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-sonnet-5": {
+      "vendor": "anthropic",
+      "name": "Claude Sonnet 5",
+      "in": 2, "out": 10, "in_cached": 0.2, "cache_write": 2.5,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-sonnet-4-6": {
+      "vendor": "anthropic",
+      "name": "Claude Sonnet 4.6",
+      "in": 3, "out": 15, "in_cached": 0.3, "cache_write": 3.75,
+      "context_length": 1000000,
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-sonnet-4-5": {
+      "vendor": "anthropic",
+      "name": "Claude Sonnet 4.5",
+      "in": 3, "out": 15, "in_cached": 0.3, "cache_write": 3.75,
+      "context_length": 200000,
+      "aliases": ["claude-sonnet-4-5-20250929"],
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "claude-haiku-4-5": {
+      "vendor": "anthropic",
+      "name": "Claude Haiku 4.5",
+      "in": 1, "out": 5, "in_cached": 0.1, "cache_write": 1.25,
+      "context_length": 200000,
+      "aliases": ["claude-haiku-4-5-20251001"],
+      "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified_at": "2026-09-24"
+    },
+
+    "gemini-3.8-flash": {
+      "vendor": "google",
+      "name": "Gemini 3.8 Flash",
+      "in": 0.75, "out": 3.75, "in_cached": 0.075,
+      "context_length": 1048576,
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gemini-3.7-flash": {
+      "vendor": "google",
+      "name": "Gemini 3.7 Flash",
+      "in": 0.75, "out": 3.75, "in_cached": 0.075,
+      "context_length": 1048576,
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gemini-3.5-flash": {
+      "vendor": "google",
+      "name": "Gemini 3.5 Flash",
+      "in": 1.5, "out": 9, "in_cached": 0.15,
+      "context_length": 1048576,
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gemini-3.5-flash-lite": {
+      "vendor": "google",
+      "name": "Gemini 3.5 Flash-Lite",
+      "in": 0.3, "out": 2.5, "in_cached": 0.03,
+      "context_length": 1048576,
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gemini-3.1-flash-lite": {
+      "vendor": "google",
+      "name": "Gemini 3.1 Flash-Lite",
+      "in": 0.25, "out": 1.5, "in_cached": 0.025,
+      "context_length": 1048576,
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gemini-3.1-pro-preview": {
+      "vendor": "google",
+      "name": "Gemini 3.1 Pro Preview",
+      "in": 2, "out": 12, "in_cached": 0.2,
+      "tiers": [{"above_tokens": 200000, "in": 4, "out": 18, "in_cached": 0.4}],
+      "context_length": 1048576,
+      "aliases": ["gemini-3.1-pro-preview-customtools"],
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gemini-2.5-pro": {
+      "vendor": "google",
+      "name": "Gemini 2.5 Pro",
+      "in": 1.25, "out": 10, "in_cached": 0.125,
+      "tiers": [{"above_tokens": 200000, "in": 2.5, "out": 15, "in_cached": 0.25}],
+      "context_length": 1048576,
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "gemini-2.5-flash": {
+      "vendor": "google",
+      "name": "Gemini 2.5 Flash",
+      "in": 0.3, "out": 2.5, "in_cached": 0.03,
+      "context_length": 1048576,
+      "src": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified_at": "2026-09-24"
+    },
+
+    "grok-4.7": {
+      "vendor": "xai",
+      "name": "Grok 4.7",
+      "in": 2, "out": 6, "in_cached": 0.5,
+      "tiers": [{"above_tokens": 200000, "in": 4, "out": 12, "in_cached": 1}],
+      "context_length": 500000,
+      "src": "https://docs.x.ai/developers/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "grok-4.6": {
+      "vendor": "xai",
+      "name": "Grok 4.6",
+      "in": 2, "out": 6, "in_cached": 0.5,
+      "tiers": [{"above_tokens": 200000, "in": 4, "out": 12, "in_cached": 1}],
+      "context_length": 500000,
+      "src": "https://docs.x.ai/developers/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "grok-4.5": {
+      "vendor": "xai",
+      "name": "Grok 4.5",
+      "in": 2, "out": 6, "in_cached": 0.3,
+      "tiers": [{"above_tokens": 200000, "in": 4, "out": 12, "in_cached": 0.6}],
+      "context_length": 500000,
+      "aliases": ["grok-4.5-latest", "grok-build-latest"],
+      "src": "https://docs.x.ai/developers/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "grok-4.3": {
+      "vendor": "xai",
+      "name": "Grok 4.3",
+      "in": 1.25, "out": 2.5, "in_cached": 0.2,
+      "tiers": [{"above_tokens": 200000, "in": 2.5, "out": 5, "in_cached": 0.4}],
+      "context_length": 1000000,
+      "aliases": ["grok-4.3-latest"],
+      "src": "https://docs.x.ai/developers/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "grok-4.20-0309-reasoning": {
+      "vendor": "xai",
+      "name": "Grok 4.20 (Reasoning)",
+      "in": 1.25, "out": 2.5, "in_cached": 0.2,
+      "tiers": [{"above_tokens": 200000, "in": 2.5, "out": 5, "in_cached": 0.4}],
+      "context_length": 1000000,
+      "aliases": ["grok-4.20-reasoning-latest", "grok-4.20", "grok-4.20-reasoning", "grok-4.20-0309", "grok-4.20-beta-0309-reasoning", "grok-4.20-beta", "grok-4.20-beta-0309", "grok-4.20-beta-latest", "grok-4.20-beta-latest-reasoning", "grok-4.20-beta-reasoning", "grok-4.20-experimental-beta-0304-reasoning", "grok-4.20-experimental-beta-0304", "grok-4.20-experimental-beta-reasoning-latest", "grok-4.20-experimental-beta-latest", "grok-4.20-reasoning-gv2"],
+      "src": "https://docs.x.ai/developers/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "grok-4.20-0309-non-reasoning": {
+      "vendor": "xai",
+      "name": "Grok 4.20 (Non-Reasoning)",
+      "in": 1.25, "out": 2.5, "in_cached": 0.2,
+      "tiers": [{"above_tokens": 200000, "in": 2.5, "out": 5, "in_cached": 0.4}],
+      "context_length": 1000000,
+      "aliases": ["grok-4.20-non-reasoning", "grok-4.20-non-reasoning-latest", "grok-4.20-beta-non-reasoning", "grok-4.20-beta-latest-non-reasoning", "grok-4.20-experimental-beta-0304-non-reasoning", "grok-4.20-experimental-beta-non-reasoning-latest", "grok-4.20-beta-0309-non-reasoning", "grok-4.20-non-reasoning-gv2"],
+      "src": "https://docs.x.ai/developers/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "grok-build-0.1": {
+      "vendor": "xai",
+      "name": "Grok Build 0.1",
+      "in": 1, "out": 2, "in_cached": 0.2,
+      "tiers": [{"above_tokens": 200000, "in": 2, "out": 4, "in_cached": 0.4}],
+      "context_length": 256000,
+      "aliases": ["grok-code-fast-1", "grok-code-fast", "grok-code-fast-1-0825"],
+      "src": "https://docs.x.ai/developers/pricing",
+      "verified_at": "2026-09-24"
+    },
+
+    "qwen3.8-max": {
+      "vendor": "alibaba",
+      "name": "Qwen3.8-Max",
+      "in": 2, "out": 6,
+      "context_length": 1000000,
+      "aliases": ["qwen3.8-max-0902"],
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen-max": {
+      "vendor": "alibaba",
+      "name": "Qwen-Max",
+      "in": 1.6, "out": 6.4, "in_cached": 0.32,
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen3.7-plus": {
+      "vendor": "alibaba",
+      "name": "Qwen3.7-Plus",
+      "in": 0.4, "out": 1.6, "in_cached": 0.08,
+      "tiers": [{"above_tokens": 256000, "in": 1.2, "out": 4.8, "in_cached": 0.24}],
+      "context_length": 1000000,
+      "aliases": ["qwen3.7-plus-2026-05-26"],
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen-plus": {
+      "vendor": "alibaba",
+      "name": "Qwen-Plus",
+      "in": 0.4, "out": 1.2, "in_cached": 0.08, "reasoning": 4,
+      "tiers": [{"above_tokens": 256000, "in": 1.2, "out": 3.6, "in_cached": 0.24, "reasoning": 12}],
+      "context_length": 1000000,
+      "aliases": ["qwen-plus-latest", "qwen-plus-2025-12-01", "qwen-plus-2025-09-11", "qwen-plus-2025-07-28"],
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen3.8-flash": {
+      "vendor": "alibaba",
+      "name": "Qwen3.8-Flash",
+      "in": 0.15, "out": 0.47,
+      "context_length": 1000000,
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen3.7-flash": {
+      "vendor": "alibaba",
+      "name": "Qwen3.7-Flash",
+      "in": 0.03, "out": 0.13, "in_cached": 0.006,
+      "tiers": [{"above_tokens": 32000, "in": 0.1, "out": 0.4, "in_cached": 0.02},
+                {"above_tokens": 256000, "in": 0.2, "out": 0.8, "in_cached": 0.04}],
+      "context_length": 1000000,
+      "aliases": ["qwen3.7-flash-2026-07-15"],
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen-flash": {
+      "vendor": "alibaba",
+      "name": "Qwen-Flash",
+      "in": 0.05, "out": 0.4, "in_cached": 0.01,
+      "tiers": [{"above_tokens": 256000, "in": 0.25, "out": 2, "in_cached": 0.05}],
+      "context_length": 1000000,
+      "aliases": ["qwen-flash-2025-07-28"],
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen3-coder-plus": {
+      "vendor": "alibaba",
+      "name": "Qwen3-Coder-Plus",
+      "in": 1, "out": 5, "in_cached": 0.2,
+      "tiers": [{"above_tokens": 32000, "in": 1.8, "out": 9, "in_cached": 0.36},
+                {"above_tokens": 128000, "in": 3, "out": 15, "in_cached": 0.6},
+                {"above_tokens": 256000, "in": 6, "out": 60, "in_cached": 1.2}],
+      "context_length": 1000000,
+      "aliases": ["qwen3-coder-plus-2025-09-23", "qwen3-coder-plus-2025-07-22"],
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+    "qwen3-coder-flash": {
+      "vendor": "alibaba",
+      "name": "Qwen3-Coder-Flash",
+      "in": 0.3, "out": 1.5, "in_cached": 0.06,
+      "tiers": [{"above_tokens": 32000, "in": 0.5, "out": 2.5, "in_cached": 0.1},
+                {"above_tokens": 128000, "in": 0.8, "out": 4, "in_cached": 0.16},
+                {"above_tokens": 256000, "in": 1.6, "out": 9.6, "in_cached": 0.32}],
+      "context_length": 1000000,
+      "aliases": ["qwen3-coder-flash-2025-07-28"],
+      "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "verified_at": "2026-09-24"
+    },
+
+    "kimi-k3": {
+      "vendor": "moonshot",
+      "name": "Kimi K3",
+      "in": 3, "out": 15, "in_cached": 0.3, "cache_write": 3,
+      "context_length": 1048576,
+      "src": "https://platform.kimi.ai/docs/pricing/chat",
+      "verified_at": "2026-09-24"
+    },
+    "kimi-k2.7-code": {
+      "vendor": "moonshot",
+      "name": "Kimi K2.7 Code",
+      "in": 0.95, "out": 4, "in_cached": 0.19,
+      "context_length": 262144,
+      "src": "https://platform.kimi.ai/docs/pricing/chat",
+      "verified_at": "2026-09-24"
+    },
+    "kimi-k2.6": {
+      "vendor": "moonshot",
+      "name": "Kimi K2.6",
+      "in": 0.95, "out": 4, "in_cached": 0.16,
+      "context_length": 262144,
+      "src": "https://platform.kimi.ai/docs/pricing/chat",
+      "verified_at": "2026-09-24"
+    },
+
+    "glm-5.3": {
+      "vendor": "zai",
+      "name": "GLM-5.3",
+      "in": 1.4, "out": 4.4, "in_cached": 0.26,
+      "context_length": 1000000,
+      "src": "https://docs.z.ai/guides/overview/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "glm-5.3-flashx": {
+      "vendor": "zai",
+      "name": "GLM-5.3-FlashX",
+      "in": 0.37, "out": 1.25, "in_cached": 0.075,
+      "context_length": 1000000,
+      "src": "https://docs.z.ai/guides/overview/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "glm-5.3-flash": {
+      "vendor": "zai",
+      "name": "GLM-5.3-Flash",
+      "in": 0.15, "out": 0.5, "in_cached": 0.03,
+      "context_length": 1000000,
+      "src": "https://docs.z.ai/guides/overview/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "glm-5.2": {
+      "vendor": "zai",
+      "name": "GLM-5.2",
+      "in": 1.4, "out": 4.4, "in_cached": 0.26,
+      "context_length": 1000000,
+      "src": "https://docs.z.ai/guides/overview/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "glm-4.7": {
+      "vendor": "zai",
+      "name": "GLM-4.7",
+      "in": 0.6, "out": 2.2, "in_cached": 0.11,
+      "src": "https://docs.z.ai/guides/overview/pricing",
+      "verified_at": "2026-09-24"
+    },
+
+    "MiniMax-M3": {
+      "vendor": "minimax",
+      "name": "MiniMax-M3",
+      "in": 0.3, "out": 1.2, "in_cached": 0.06,
+      "tiers": [{"above_tokens": 512000, "in": 0.6, "out": 2.4, "in_cached": 0.12}],
+      "context_length": 1000000,
+      "src": "https://platform.minimax.io/docs/guides/pricing-paygo",
+      "verified_at": "2026-09-24"
+    },
+    "MiniMax-M2.7": {
+      "vendor": "minimax",
+      "name": "MiniMax-M2.7",
+      "in": 0.3, "out": 1.2, "in_cached": 0.06, "cache_write": 0.375,
+      "context_length": 204800,
+      "src": "https://platform.minimax.io/docs/guides/pricing-paygo",
+      "verified_at": "2026-09-24"
+    },
+    "MiniMax-M2.7-highspeed": {
+      "vendor": "minimax",
+      "name": "MiniMax-M2.7-highspeed",
+      "in": 0.6, "out": 2.4, "in_cached": 0.06, "cache_write": 0.375,
+      "context_length": 204800,
+      "src": "https://platform.minimax.io/docs/guides/pricing-paygo",
+      "verified_at": "2026-09-24"
+    },
+
+    "mistral-large-2512": {
+      "vendor": "mistral",
+      "name": "Mistral Large 3",
+      "in": 0.5, "out": 1.5, "in_cached": 0.05,
+      "aliases": ["mistral-large-latest"],
+      "src": "https://docs.mistral.ai/inference/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "mistral-medium-3-5": {
+      "vendor": "mistral",
+      "name": "Mistral Medium 3.5",
+      "in": 1.5, "out": 7.5, "in_cached": 0.15,
+      "aliases": ["mistral-medium-3", "mistral-medium-latest"],
+      "src": "https://docs.mistral.ai/inference/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "mistral-small-2603": {
+      "vendor": "mistral",
+      "name": "Mistral Small 4",
+      "in": 0.15, "out": 0.6, "in_cached": 0.015,
+      "aliases": ["mistral-small-latest"],
+      "src": "https://docs.mistral.ai/inference/pricing",
+      "verified_at": "2026-09-24"
+    },
+    "codestral-2508": {
+      "vendor": "mistral",
+      "name": "Codestral",
+      "in": 0.3, "out": 0.9, "in_cached": 0.03,
+      "aliases": ["codestral-latest"],
+      "src": "https://docs.mistral.ai/inference/pricing",
+      "verified_at": "2026-09-24"
+    }
+  }
+}
