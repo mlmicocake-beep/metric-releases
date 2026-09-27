@@ -106,7 +106,7 @@ var REPO = "mlmicocake-beep/metric-releases";   // ← 換成實際的公開發�
 var API = "https://api.github.com/repos/" + REPO + "/releases";
 var KIND = {
   "Metric-Setup": {label: "METRIC Agent", hint: "安裝於每位使用者的電腦", order: 0},
-  "MetricPortalSetup": {label: "METRIC Portal", hint: "安裝於伺服器，由 IT 管理", order: 1}
+  "MetricPortalSetup": {label: "METRIC Portal", hint: "安裝於企業伺服器，由 IT 管理；內含同版本 Agent", order: 1}
 };
 
 function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g,
@@ -151,7 +151,7 @@ function render(assets, tag, when){
   // 失敗被 catch 吃掉之後，畫面上就是一個永遠空白的欄位。
   // 要核對的人按「簽章清單」直接開那個檔就看得到 sha256。
   document.getElementById("src").textContent =
-    "版本 " + (tag || "") + (when ? "　發佈於 " + when.slice(0, 10) : "");
+    "版本 " + (tag || "") + (when ? "　發佈於 " + new Date(when).toLocaleDateString("sv-SE") : "")  // 本地日期，不取 UTC 前 10 字;
   return true;
 }
 
