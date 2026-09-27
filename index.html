@@ -129,7 +129,8 @@ function render(assets, tag, when){
     if (!k || seen[k.label]) return;              // 同一種只留最新的那一個
     seen[k.label] = 1;
     var m = a.name.match(/(\d+(?:\.\d+){1,3})/);
-    rows.push({k: k, name: a.name, ver: m ? m[1] : "", size: a.size,
+    // Agent 的版號給人看時寫成 0.21.5+8（檔名與 tag 仍是 0.21.5.8）；Portal 只有三段，不受影響。
+    rows.push({k: k, name: a.name, ver: m ? m[1].replace(/^(\d+\.\d+\.\d+)\.(\d+)$/, "$1+$2") : "", size: a.size,
                url: a.browser_download_url});
   });
   rows.sort(function(x, y){ return x.k.order - y.k.order; });

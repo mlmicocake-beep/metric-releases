@@ -7,23 +7,23 @@
 
 ## 檔案
 
-每個版本以 `v<Portal 版本>-agent<Agent 版本>` 標記（例如 `v3.0.5-agent0.21.5.7`），
-包含下列檔案，每個檔案各附一份原廠簽章清單：
+每個版本以 `v<Portal 版本>-agent<Agent 版本>` 標記（例如 `v3.0.6-agent0.21.5.8`），
+包含下列檔案，每個檔案各附一份原廠簽章清單。Agent 版本於畫面與發行說明中顯示為 `0.21.5+8`，標記與檔名一律使用 `0.21.5.8`。
 
 | 檔案 | 用途 |
 |---|---|
-| `MetricPortalSetup-<版本>.exe` | 企業伺服器（由 IT 管理），**內含同版本 Agent**；首次安裝請使用此檔 |
-| `MetricPortalSetup-<版本>-portal-only.exe` | 僅升級 Portal，不含 Agent；不可用於全新安裝 |
-| `Metric-Setup-<版本>.exe` | 使用者電腦的 Agent 獨立安裝檔 |
-| `metric-source-<版本>.zip` | Agent 就地更新套件，由 Portal 派送 Agent 更新時使用，無須手動下載 |
+| `MetricPortalSetup-<Portal 版本>.exe` | 企業伺服器（由 IT 管理），**內含同版本 Agent**；首次安裝請使用此檔 |
+| `MetricPortalSetup-<Portal 版本>-portal-only.exe` | 僅升級 Portal，不含 Agent；不可用於全新安裝 |
+| `Metric-Setup-<Agent 版本>.exe` | 使用者電腦的 Agent 獨立安裝檔 |
+| `metric-source-<Agent 版本>.zip` | Agent 就地更新套件，由 Portal 派送 Agent 更新時使用，無須手動下載 |
 | `*.manifest.json` | 對應的簽章清單，與檔案成對 |
 
-部分新功能須 Portal 與 Agent 同時更新至同一版本標記方可使用，
-例如 3.0.5／0.21.5.7 起的技能與外掛市集；舊版 Agent 仍可連線，沿用原有功能。
+部分新功能須 Portal 與 Agent 同時更新至同一版本標記方可完整使用，
+例如 3.0.6／0.21.5+8 的換電腦說明與登入檔防複製；舊版 Agent 仍可連線，沿用原有功能（在非登記的電腦上同樣會被阻擋）。
 
-## Portal 系統需求（資料保存一年）
+## 系統需求（Portal 以資料保存一年估算）
 
-作業系統 Windows Server 2019／2022／2025（x64），資料庫請放在 SSD。
+Portal 作業系統為 Windows Server 2019／2022／2025（x64），資料庫請放在 SSD。
 
 | 使用人數 | 最低 | 建議 |
 |---|---|---|
@@ -32,7 +32,9 @@
 | 1,000 人 | 8 vCPU／32 GB／340 GB | 8 vCPU／64 GB／570 GB |
 
 磁碟含每日資料庫備份的輪替保留（最近 7 天、4 週、12 個月；壓縮保存，可另放在其他磁碟或網路儲存）。
-對內只需開放 TCP 8788。
+對內只需開放 TCP 8788（HTTPS；Portal 不開啟未加密的 HTTP）。
+
+Agent：Windows 10／11，最低 4 核／16 GB／20 GB，建議 8 核／32 GB／50 GB SSD；無須系統管理員權限。
 
 ## 價目表
 
