@@ -1,0 +1,211 @@
+{
+ "schema": 1,
+ "generated_at": "2026-10-05",
+ "currency": "USD",
+ "units": {
+  "chars": "每 100 萬字元（朗讀的輸入文字）",
+  "audio_min": "每分鐘音檔（聽寫）",
+  "minute": "每分鐘（即時語音對話）",
+  "image": "每張圖",
+  "video_sec": "每秒影片",
+  "call": "每 1,000 次呼叫",
+  "tok_in": "每 100 萬輸入 tokens",
+  "tok_out": "每 100 萬輸出 tokens"
+ },
+ "note": "企業代付工具的建議價。prices.<工具>.<計價單位>：price＝沒有對到模型時用的價，models＝各模型自己的價（模型代號跟 Agent 送出的一樣；FAL 是端點路徑），min_sec＝廠商每次最少算幾秒。每一筆都有官方來源（src）與核對日期（as_of）；查不到官方價的模型不列（Portal 照 IT 填的價或每次估價算）。",
+ "prices": {
+  "openai-audio": {
+   "chars": {
+    "models": {
+     "tts-1": 15.0,
+     "tts-1-hd": 30.0
+    },
+    "src": "https://developers.openai.com/api/docs/pricing",
+    "as_of": "2026-10-05",
+    "note": "Official $15.00 / 1M chars (tts-1), $30.00 / 1M chars (tts-1-hd). gpt-4o-mini-tts is token-priced only: text input $0.60 / 1M tokens, audio output $12.00 / 1M tokens; no official per-char figure and no official estimated cost per minute shown on the pricing page or model page, so default price omitted."
+   },
+   "audio_min": {
+    "price": 0.006,
+    "models": {
+     "whisper-1": 0.006,
+     "gpt-4o-transcribe": 0.006,
+     "gpt-4o-mini-transcribe": 0.003
+    },
+    "src": "https://developers.openai.com/api/docs/pricing",
+    "as_of": "2026-10-05",
+    "note": "OpenAI's published per-minute figures (row labelled 'Whisper' $0.006 / minute, mapped to whisper-1; gpt-4o-transcribe and gpt-4o-mini-transcribe show estimated per-minute figures next to token prices: $2.50 in / $10.00 out and $1.25 / $5.00 per 1M tokens)."
+   }
+  },
+  "openai-live": {
+   "minute": {
+    "price": 0.05,
+    "models": {
+     "gpt-live-1": 0.05
+    },
+    "src": "https://developers.openai.com/api/docs/pricing",
+    "as_of": "2026-10-05",
+    "note": "Official 'GPT-Live sessions' row: gpt-live-1 $0.05 per minute of session duration, billed per second without rounding up to a whole minute. Per the GPT-Live guide (developers.openai.com/api/docs/guides/live), backend model and tool usage is billed separately (not included). For reference, gpt-realtime is token-priced (audio $32 in / $64 out per 1M; text $4 / $16) and gpt-realtime-mini (audio $10 / $20); no official per-minute basis for those."
+   }
+  },
+  "elevenlabs": {
+   "chars": {
+    "price": 80.0,
+    "models": {
+     "eleven_multilingual_v2": 80.0,
+     "eleven_flash_v2_5": 40.0,
+     "eleven_turbo_v2_5": 40.0,
+     "eleven_v3": 80.0
+    },
+    "src": "https://elevenlabs.io/pricing/api",
+    "as_of": "2026-10-05",
+    "note": "Official usage-based API price per 1K chars x1000: v2 Multilingual $0.08/1K, Flash/Turbo $0.04/1K (one shared row), v3 $0.08/1K (v3 Conversational $0.04/1K). Same rate across all plan tiers. Page also lists new v4 ($0.08/1K, promo $0.022 until Oct 12) and v4 Turbo ($0.04/1K, promo $0.011)."
+   },
+   "audio_min": {
+    "price": 0.0036667,
+    "models": {
+     "scribe_v2": 0.0036667
+    },
+    "src": "https://elevenlabs.io/pricing/api",
+    "as_of": "2026-10-05",
+    "note": "Official Scribe v2 $0.22 per hour / 60. Scribe v2 Realtime is $0.39/hr; add-ons entity detection $0.070/hr, keyterm prompting $0.050/hr."
+   }
+  },
+  "groq-audio": {
+   "audio_min": {
+    "price": 0.00066667,
+    "models": {
+     "whisper-large-v3-turbo": 0.00066667,
+     "whisper-large-v3": 0.00185
+    },
+    "src": "https://console.groq.com/docs/speech-to-text",
+    "as_of": "2026-10-05",
+    "note": "Official $0.04/hr (turbo) and $0.111/hr (large-v3), divided by 60. Minimum billed length 10 seconds per request. groq.com/pricing did not render prices (JS page); figures from Groq's official docs.",
+    "min_sec": 10
+   }
+  },
+  "mistral-audio": {
+   "audio_min": {
+    "price": 0.003,
+    "models": {
+     "voxtral-mini-latest": 0.003,
+     "voxtral-small-latest": 0.004
+    },
+    "src": "https://mistral.ai/pricing/api",
+    "as_of": "2026-10-05",
+    "note": "Voxtral Mini Transcribe 2 audio input $0.003/min (Mistral docs: voxtral-mini-latest on the transcriptions endpoint = Voxtral Mini Transcribe 2, voxtral-mini-2602). Voxtral Small audio input $0.004/min (text input $0.1, output $0.4 per 1M tokens extra). Voxtral Mini Transcribe Realtime is $0.006/min."
+   },
+   "chars": {
+    "price": 16.0,
+    "models": {
+     "voxtral-mini-tts-2603": 16.0
+    },
+    "src": "https://mistral.ai/pricing/api",
+    "as_of": "2026-10-05",
+    "note": "Official 'Voxtral TTS $0.016 per 1k characters' x1000 (docs.mistral.ai/inference/pricing shows the same as $16 / M chars output). Mapped Voxtral TTS (v26.03) to voxtral-mini-tts-2603."
+   }
+  },
+  "gemini-tts": {
+   "tok_in": {
+    "price": 0.5,
+    "models": {
+     "gemini-2.5-flash-preview-tts": 0.5,
+     "gemini-2.5-pro-preview-tts": 1.0
+    },
+    "src": "https://ai.google.dev/gemini-api/docs/pricing",
+    "as_of": "2026-10-05",
+    "note": "Paid tier, text input per 1M tokens. Page also lists gemini-3.8-flash-tts ($0.50), gemini-3.8-flash-lite-tts ($0.50), gemini-3.1-flash-tts-preview ($1.00)."
+   },
+   "tok_out": {
+    "price": 10.0,
+    "models": {
+     "gemini-2.5-flash-preview-tts": 10.0,
+     "gemini-2.5-pro-preview-tts": 20.0
+    },
+    "src": "https://ai.google.dev/gemini-api/docs/pricing",
+    "as_of": "2026-10-05",
+    "note": "Paid tier, audio output per 1M tokens. Page also lists gemini-3.8-flash-tts ($9.00), gemini-3.8-flash-lite-tts ($6.00, both through 2026-12-31), gemini-3.1-flash-tts-preview ($20.00)."
+   }
+  },
+  "xai-audio": {
+   "chars": {
+    "price": 15.0,
+    "models": {
+     "default": 15.0
+    },
+    "src": "https://docs.x.ai/docs/models",
+    "as_of": "2026-10-05",
+    "note": "Official 'Text to Speech | $15.00 / 1M chars'; no model name given."
+   },
+   "audio_min": {
+    "price": 0.0016667,
+    "models": {
+     "default": 0.0016667
+    },
+    "src": "https://docs.x.ai/docs/models",
+    "as_of": "2026-10-05",
+    "note": "Official 'Speech to Text $0.10 / hr (REST)' / 60; streaming is $0.20/hr ($0.0033333/min). No model name given."
+   }
+  },
+  "fal-queue": {
+   "image": {
+    "price": 0.006,
+    "models": {
+     "fal-ai/flux-2/klein/9b": 0.006,
+     "fal-ai/flux-2-pro": 0.03,
+     "fal-ai/z-image/turbo": 0.005,
+     "fal-ai/nano-banana-pro": 0.15,
+     "fal-ai/nano-banana-2": 0.08,
+     "fal-ai/gpt-image-1.5": 0.133,
+     "fal-ai/ideogram/v3": 0.03,
+     "fal-ai/qwen-image": 0.02,
+     "fal-ai/recraft/v4/pro/text-to-image": 0.25,
+     "fal-ai/kling-image/v3/text-to-image": 0.028
+    },
+    "src": "https://fal.ai/models/<model id> (each model's official fal.ai page)",
+    "as_of": "2026-10-05",
+    "note": "Assumes one 1-megapixel (1024x1024) image. Per-MP models: klein 9b $0.006/MP (rounding not stated), z-image turbo $0.005/MP (+$0.0025 optional prompt expansion), qwen-image $0.02/MP, flux-2-pro $0.03 first MP + $0.015 per extra MP of input/output (rounded up). nano-banana-pro $0.15 standard (4K = 2x, web search +$0.015). nano-banana-2 $0.08 at 1K (0.5K 0.75x, 2K 1.5x, 4K 2x). gpt-image-1.5 at endpoint defaults quality=high, 1024x1024 ($0.133; medium $0.034, low $0.009) plus $0.005/1K input text tokens. ideogram v3 TURBO $0.03 (page summary said TURBO is default; BALANCED $0.06, QUALITY $0.09). recraft v4 pro and kling-image v3 are flat per image."
+   }
+  },
+  "fal-video": {
+   "video_sec": {
+    "price": 0.025,
+    "models": {
+     "fal-ai/pixverse/v6/text-to-video": 0.025,
+     "fal-ai/veo3.1": 0.2,
+     "fal-ai/kling-video/v3/standard/text-to-video": 0.084,
+     "fal-ai/kling-video/v3/pro/text-to-video": 0.112,
+     "bytedance/seedance-2.0/text-to-video": 0.3034,
+     "fal-ai/ltx-2.3-22b/text-to-video": 0.0355,
+     "minimax/h3/text-to-video": 0.05
+    },
+    "src": "https://fal.ai/models/<endpoint> (each model's official fal.ai page)",
+    "as_of": "2026-10-05",
+    "note": "Lowest listed resolution, audio off, unless noted. pixverse v6: 360p $0.025 (audio $0.035; 720p $0.045/$0.060; 1080p $0.090/$0.115); default resolution not stated. veo3.1: 720p/1080p $0.20 no audio, $0.40 with audio (4K $0.40/$0.60; Fast tier $0.10/$0.15). kling v3 standard $0.084 off / $0.126 audio / $0.154 voice control; pro $0.112 / $0.168 / $0.196. seedance 2.0: page quotes default 720p with audio $0.3034/s (token-priced $0.014 per 1K tokens, tokens = h*w*duration*24/1024; 480p would be about $0.13/s, computed). ltx-2.3-22b: official $0.001605 per MP of width*height*frames (audio included); converted assuming 1280x720 at 24 fps = 22.1 MP/s, about $0.0355/s (page example: 121 frames 720p = $0.179). minimax h3: 480p $0.05 (768p $0.06, 2K $0.13, 4K $0.16). Image-to-video variants not checked."
+   }
+  },
+  "krea": {
+   "image": {
+    "price": 0.03,
+    "models": {
+     "krea-2-medium": 0.03,
+     "krea-2-large": 0.06,
+     "krea-2-medium-turbo": 0.015
+    },
+    "src": "https://www.krea.ai/app/api/pricing",
+    "as_of": "2026-10-05",
+    "note": "API is USD-denominated per image (not compute units). Text-to-image at 1K; with style references +$0.005, with moodboards +$0.010 (medium $0.035/$0.040, large $0.065/$0.070, per krea.ai/docs/developers/krea-2/overview). The docs page does not list a turbo endpoint; turbo $0.015 comes from the API pricing page only."
+   }
+  },
+  "perplexity": {
+   "call": {
+    "price": 5.0,
+    "models": {
+     "default": 5.0
+    },
+    "src": "https://docs.perplexity.ai/getting-started/pricing",
+    "as_of": "2026-10-05",
+    "note": "Search API $5.00 per 1,000 successful requests, no token costs, same price however many queries are in one request. A 'Fast Search API' tier is $1.00 per 1,000."
+   }
+  }
+ }
+}
