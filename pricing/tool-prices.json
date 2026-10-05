@@ -10,7 +10,8 @@
   "video_sec": "每秒影片",
   "call": "每 1,000 次呼叫",
   "tok_in": "每 100 萬輸入 tokens",
-  "tok_out": "每 100 萬輸出 tokens"
+  "tok_out": "每 100 萬輸出 tokens",
+  "credit": "每 1,000 點（Firecrawl）"
  },
  "note": "企業代付工具的建議價。prices.<工具>.<計價單位>：price＝沒有對到模型時用的價，models＝各模型自己的價（模型代號跟 Agent 送出的一樣；FAL 是端點路徑），min_sec＝廠商每次最少算幾秒。每一筆都有官方來源（src）與核對日期（as_of）；查不到官方價的模型不列（Portal 照 IT 填的價或每次估價算）。",
  "prices": {
@@ -22,7 +23,7 @@
     },
     "src": "https://developers.openai.com/api/docs/pricing",
     "as_of": "2026-10-05",
-    "note": "Official $15.00 / 1M chars (tts-1), $30.00 / 1M chars (tts-1-hd). gpt-4o-mini-tts is token-priced only: text input $0.60 / 1M tokens, audio output $12.00 / 1M tokens; no official per-char figure and no official estimated cost per minute shown on the pricing page or model page, so default price omitted."
+    "note": "Official $15.00 / 1M chars (tts-1), $30.00 / 1M chars (tts-1-hd). gpt-4o-mini-tts is token-priced only: text input $0.60 / 1M tokens, audio output $12.00 / 1M tokens; no official per-char figure and no official estimated cost per minute shown on the pricing page or model page, so default price omitted. gpt-4o-mini-tts 改照 tokens 計價（見 tok_in／tok_out）。"
    },
    "audio_min": {
     "price": 0.006,
@@ -34,17 +35,37 @@
     "src": "https://developers.openai.com/api/docs/pricing",
     "as_of": "2026-10-05",
     "note": "OpenAI's published per-minute figures (row labelled 'Whisper' $0.006 / minute, mapped to whisper-1; gpt-4o-transcribe and gpt-4o-mini-transcribe show estimated per-minute figures next to token prices: $2.50 in / $10.00 out and $1.25 / $5.00 per 1M tokens)."
+   },
+   "tok_in": {
+    "price": 0.6,
+    "models": {
+     "gpt-4o-mini-tts": 0.6
+    },
+    "src": "https://developers.openai.com/api/docs/models/gpt-4o-mini-tts",
+    "as_of": "2026-10-05",
+    "note": "gpt-4o-mini-tts 文字輸入 US$0.60／百萬 tokens（官方）。廠商回應沒帶用量時，Portal 估算輸入 tokens：中日韓字 1 字 1 token、其他每 4 字元 1 token（誤差約 ±30%，文字輸入只占費用的一小部分）。"
+   },
+   "tok_out": {
+    "price": 12.0,
+    "models": {
+     "gpt-4o-mini-tts": 12.0
+    },
+    "src": "https://developers.openai.com/api/docs/models/gpt-4o-mini-tts",
+    "as_of": "2026-10-05",
+    "note": "gpt-4o-mini-tts 音訊輸出 US$12／百萬 tokens（官方）。回應是 SSE 時用最後 speech.audio.done 的 usage；一般回應（音檔）不帶用量，輸出 tokens 用音檔長度換算：每分鐘 1,250 tokens（OpenAI 發表時的約 US$0.015／分鐘 ÷ US$12／百萬 tokens；這個每分鐘數字現在的官方價目頁沒有列出，估算，IT 可改單價）。"
    }
   },
   "openai-live": {
    "minute": {
     "price": 0.05,
     "models": {
-     "gpt-live-1": 0.05
+     "gpt-live-1": 0.05,
+     "gpt-realtime": 0.096,
+     "gpt-realtime-mini": 0.03
     },
     "src": "https://developers.openai.com/api/docs/pricing",
     "as_of": "2026-10-05",
-    "note": "Official 'GPT-Live sessions' row: gpt-live-1 $0.05 per minute of session duration, billed per second without rounding up to a whole minute. Per the GPT-Live guide (developers.openai.com/api/docs/guides/live), backend model and tool usage is billed separately (not included). For reference, gpt-realtime is token-priced (audio $32 in / $64 out per 1M; text $4 / $16) and gpt-realtime-mini (audio $10 / $20); no official per-minute basis for those."
+    "note": "Official 'GPT-Live sessions' row: gpt-live-1 $0.05 per minute of session duration, billed per second without rounding up to a whole minute. Per the GPT-Live guide (developers.openai.com/api/docs/guides/live), backend model and tool usage is billed separately (not included). For reference, gpt-realtime is token-priced (audio $32 in / $64 out per 1M; text $4 / $16) and gpt-realtime-mini (audio $10 / $20); no official per-minute basis for those. gpt-realtime／gpt-realtime-mini 官方照 tokens 計價（音訊輸入 US$32／10、輸出 US$64／20 每百萬 tokens），Agent 只回報通話秒數，所以換算成每分鐘：官方「使用者音訊每 100 ms 1 token、助理音訊每 50 ms 1 token」，假設每分鐘 1 分鐘輸入＋1 分鐘輸出音訊（600＋1,200 tokens）⇒ gpt-realtime US$0.096／分鐘、gpt-realtime-mini US$0.030／分鐘；不含文字、快取與每次回應重算的對話內容，估算，IT 可改。來源 https://developers.openai.com/api/docs/guides/voice-latency-cost"
    }
   },
   "elevenlabs": {
@@ -189,11 +210,12 @@
     "models": {
      "krea-2-medium": 0.03,
      "krea-2-large": 0.06,
-     "krea-2-medium-turbo": 0.015
+     "krea-2-medium-turbo": 0.015,
+     "enhance": 0.1
     },
     "src": "https://www.krea.ai/app/api/pricing",
     "as_of": "2026-10-05",
-    "note": "API is USD-denominated per image (not compute units). Text-to-image at 1K; with style references +$0.005, with moodboards +$0.010 (medium $0.035/$0.040, large $0.065/$0.070, per krea.ai/docs/developers/krea-2/overview). The docs page does not list a turbo endpoint; turbo $0.015 comes from the API pricing page only."
+    "note": "API is USD-denominated per image (not compute units). Text-to-image at 1K; with style references +$0.005, with moodboards +$0.010 (medium $0.035/$0.040, large $0.065/$0.070, per krea.ai/docs/developers/krea-2/overview). The docs page does not list a turbo endpoint; turbo $0.015 comes from the API pricing page only. enhance（POST /generate/enhance/krea/enhance）官方沒有單獨的價：用 Krea API 頁上最便宜的放大價「Topaz US$0.10 per upscaled image」（https://www.krea.ai/features/api），估算，IT 可改。"
    }
   },
   "perplexity": {
@@ -206,6 +228,16 @@
     "as_of": "2026-10-05",
     "note": "Search API $5.00 per 1,000 successful requests, no token costs, same price however many queries are in one request. A 'Fast Search API' tier is $1.00 per 1,000."
    }
+  },
+  "firecrawl": {
+   "credit": {
+    "price": 3.2,
+    "models": {},
+    "src": "https://www.firecrawl.dev/pricing",
+    "as_of": "2026-10-05",
+    "note": "依 Hobby/Standard 方案換算，IT 可改：Hobby 年繳 US$16／月 5,000 點＝US$3.20／1,000 點（月繳 US$19＝US$3.80）；Standard 年繳 US$83／月 100,000 點＝US$0.83／1,000 點。用量照回應的 creditsUsed（search 在最上層，https://docs.firecrawl.dev/api-reference/endpoint/search）；scrape 的回應沒有這個欄位，照官方「1 點／頁」算 1 點。"
+   }
   }
- }
+ },
+ "unverified": []
 }
