@@ -105,6 +105,8 @@ a{color:var(--accent)}
 var REPO = "mlmicocake-beep/metric-releases";   // ← 換成實際的公開發行 repo
 var API = "https://api.github.com/repos/" + REPO + "/releases";
 var KIND = {
+  // Agent 安裝檔 0.21.5.14 起叫 METRIC-AI-Setup-<版號>.exe；舊名 Metric-Setup 留著，往回找舊版本時還認得。
+  "METRIC-AI-Setup": {label: "METRIC Agent", hint: "安裝於每位使用者的電腦", order: 0},
   "Metric-Setup": {label: "METRIC Agent", hint: "安裝於每位使用者的電腦", order: 0},
   "MetricPortalSetup": {label: "METRIC Portal", hint: "安裝於企業伺服器，由 IT 管理；內含同版本 Agent", order: 1}
 };
