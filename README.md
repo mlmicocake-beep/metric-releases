@@ -8,17 +8,17 @@
 
 ## 現行版本
 
-**Portal 3.3.6 ／ Agent 0.21.7+4**，標記 `v3.3.6-agent0.21.7.4`。
+**Portal 3.3.8 ／ Agent 0.22.2+1**，標記 `v3.3.8-agent0.22.2.1`。
 
 | 檔案 | 用途 |
 |---|---|
-| `MetricPortalSetup-3.3.6.exe` | 企業伺服器（由 IT 管理），**內含同版本 Agent**；首次安裝請使用此檔 |
-| `MetricPortalSetup-3.3.6-portal-only.exe` | 僅升級 Portal，不含 Agent；不可用於全新安裝 |
-| `METRIC-AI-Setup-0.21.7.4.exe` | 使用者電腦的 Agent 獨立安裝檔 |
-| `metric-source-0.21.7.4.zip` | Agent 就地更新套件，由 Portal 派送 Agent 更新時使用，無須手動下載 |
+| `MetricPortalSetup-3.3.8.exe` | 企業伺服器（由 IT 管理），**內含同版本 Agent**；首次安裝請使用此檔 |
+| `MetricPortalSetup-3.3.8-portal-only.exe` | 僅升級 Portal，不含 Agent；不可用於全新安裝 |
+| `METRIC-AI-Setup-0.22.2.1.exe` | 使用者電腦的 Agent 獨立安裝檔 |
+| `metric-source-0.22.2.1.zip` | Agent 就地更新套件，由 Portal 派送 Agent 更新時使用，無須手動下載 |
 | `*.manifest.json` | 對應的原廠簽章清單，與檔案成對 |
 
-每個版本以 `v<Portal 版本>-agent<Agent 版本>` 標記。Agent 版本於畫面與發行說明中顯示為 `0.21.7+4`，標記與檔名一律使用 `0.21.7.4`。
+每個版本以 `v<Portal 版本>-agent<Agent 版本>` 標記。Agent 版本於畫面與發行說明中顯示為 `0.22.2+1`，標記與檔名一律使用 `0.22.2.1`。
 部分新功能須 Portal 與 Agent 同時更新至同一版本標記方可完整使用；舊版 Agent 仍可連線，沿用原有功能。
 
 ## 系統需求（Portal 以資料保存一年估算）
@@ -63,7 +63,7 @@ Portal 更新模型規格表時（自動同步或「立即更新」）一併讀�
 ## 驗證下載的檔案
 
 ```
-certutil -hashfile MetricPortalSetup-3.3.6.exe SHA256
+certutil -hashfile MetricPortalSetup-3.3.8.exe SHA256
 ```
 
 計算結果應與同名 `.manifest.json` 中的 `sha256` 一致。
